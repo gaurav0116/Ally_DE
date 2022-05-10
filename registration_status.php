@@ -37,7 +37,7 @@ if(isset($_REQUEST['register']))
 	}
 	else
 	{
-		$al_status="Not Approve";
+		$al_status="Approve";
 		$register_sql = "INSERT INTO alumnimember (pi_register, al_password) 
 		VALUES ('$registration', '$password')";
 
@@ -48,7 +48,35 @@ if(isset($_REQUEST['register']))
 			$conn->query($register_sql);
 	    	echo "<br><br>";
 			echo "Registration successful. ";
-			echo "<br/><br/>"; 
+			echo "<br/><br/>";
+			if(isset($_REQUEST['register'])) {
+			   $mailto = "alumniconnect09@gmail.com";
+			   $name = $_POST['pi_name'];
+			   $fromEmail = $_POST['pi_email'];
+			   $phone = $_POST['pi_mobile'];
+			   $subject = "New Alumni";
+			   $subject2 = "Confirmation | Alumni"; 
+
+			   $message = "Client Name: ".$name."\n"."Phone Number: ".$phone."\n"."Email Id: ".$fromEmail."\n";
+
+			   $message2 = "Dear ".$name."\n"."Thank you for contacting us. You have Successfully registered with Alumni"."\n\n"."Regards,"."\n"."- Alumni";
+			   
+			   $headers = "From: ".$fromEmail; 
+			   $headers2 = "From: ".$mailto;
+			   
+				$result1 = mail($mailto, $subject, $message, $headers);
+				$result2 = mail($fromEmail, $subject2,$message2, $headers2);
+
+				if ($result1 && $result2) {
+				  $success = "Confirmation massage sent in your Mail Id!";
+				  echo $success;
+				} else {
+				  $failed = "Failed to send confirmation messege in Mail!";
+				  echo $failed;
+				}
+			   
+			  }
+			echo "<br/><br/>";
 			echo "Redirecting you to login page in 5 seconds.";
 			echo "<br/><br/>"; 
 			echo "Or click <a href=login.html>here.</a>";
