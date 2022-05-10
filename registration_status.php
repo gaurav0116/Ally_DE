@@ -62,10 +62,10 @@ if(isset($_REQUEST['register']))
 			   $message2 = "Dear ".$name."\n"."Thank you for contacting us. You have Successfully registered with Alumni"."\n\n"."Regards,"."\n"."- Alumni";
 			   
 			   $headers = "From: ".$fromEmail; 
-			   $headers2 = "From: ".$mailto; 
+			   $headers2 = "From: ".$mailto;
 			   
 				$result1 = mail($mailto, $subject, $message, $headers);
-				$result2 = mail($fromEmail, $subject2, $message2, $headers2);
+				$result2 = mail($fromEmail, $subject2,$message2, $headers2);
 
 				if ($result1 && $result2) {
 				  $success = "Confirmation massage sent in your Mail Id!";
